@@ -40,7 +40,7 @@ print("\n##Copying over translated files to the omni repo...\n")
 source_lang_path = locale_repo/"locale"
 for lang in source_lang_path.iterdir():
     #Dont copy en files back!!!
-    if lang.is_dir() and lang.name != "en":
+    if lang.name != "en":
         for obj in (source_lang_path/lang.name).iterdir():
             if obj.is_file():
                 modname = obj.name.split(".")[0]
