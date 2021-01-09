@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 import shutil
 
 #All mods to copy locales from
@@ -18,7 +17,7 @@ mods = {
 }
 
 #OmniLocales repo path
-locale_repo = Path(os.path.dirname(os.path.realpath(__file__)))
+locale_repo = Path(__file__).resolve().parent
 #Omnimatter repo path
 omni_repo = locale_repo.parent/"omnimatter"
 
@@ -30,9 +29,9 @@ for modname in mods:
     dest_path = locale_repo/"locale"/"en"
     for obj in source_path.iterdir():
         if obj.is_file():
-            os.makedirs(dest_path, exist_ok=True)
+            Path.mkdir(dest_path,  parents=True, exist_ok=True)
             shutil.copy(source_path/obj.name, dest_path/obj.name)
-            print("Copied " + str(source_path/obj.name)+ " to " + str(dest_path/obj.name))
+            print(f"Copied {source_path/obj.name} to {dest_path/obj.name}")
 
 #Copy all translated files back into the omni dir
 print("\n##Copying over translated files to the omni repo...\n")
@@ -47,10 +46,10 @@ for lang in source_lang_path.iterdir():
                 if (modname in mods):
                     dest_path = omni_repo/modname/"locale"/lang.name
                     #Create the language folder if it doesnt exist yet
-                    os.makedirs(dest_path, exist_ok=True)
+                    Path.mkdir(dest_path, parents=True, exist_ok=True)
                     #copy files over
                     shutil.copy(source_lang_path/lang.name/obj.name, dest_path/obj.name)
-                    print("Copied " + str(source_lang_path/lang.name/obj.name)+" to " + str(dest_path/obj.name))
+                    print(f"Copied {source_lang_path/lang.name/obj.name} to {dest_path/obj.name}")
 
 print("Press enter to exit")
 input()
