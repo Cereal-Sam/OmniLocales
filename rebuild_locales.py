@@ -25,7 +25,6 @@ omni_repo = locale_repo.parent/"omnimatter"
 #Copy all en files to the locale repo
 print("\n##Copying over en files to the locale repo...\n")
 for modname in mods:
-    filename = modname + ".cfg"
     #Copy current en files into the locales repo
     source_path = omni_repo/modname/"locale"/"en"
     dest_path = locale_repo/"locale"/"en"
